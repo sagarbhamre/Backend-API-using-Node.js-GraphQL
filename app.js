@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
 const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
 
 const bodyParser = require("body-parser");
 
@@ -15,15 +16,15 @@ const fileStorage = multer.diskStorage({
         cb(null, 'images')
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname);
+        cb(null, uuidv4())
     }
 });
 
 const fileFilter = (req, file, cb) => {
     if(
-        file.mimeType === 'image/png' ||
-        file.mimeType === 'image/jpg' ||
-        file.mimeType === 'image/jpeg' 
+        file.mimetype === 'image/png' ||
+        file.mimetype === 'image/jpg' ||
+        file.mimetype === 'image/jpeg' 
     ){
         cb(null, true);
     }else{
