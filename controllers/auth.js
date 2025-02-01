@@ -59,8 +59,8 @@ exports.signup = (req, res, next) => {
         const token = jwt.sign(
           {email: loadedUser.email, userId: loadedUser._id.toString()},
            'somesupersecretsecret', {expiresIn: '1h'});
-           
-           res.status(200).json({token: token, userId: loadedUser._id.toString()} )
+
+           res.status(200).json({token: token, userId: loadedUser._id.toString()} ) /// <==== send browser token to be stored it in local storage
       })
       .catch(err => {
           if (!err.statusCode) {
