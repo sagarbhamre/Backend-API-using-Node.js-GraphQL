@@ -63,8 +63,12 @@ mongoose
     "mongodb+srv://bunty:4ozHNDozysKXwaMc@cluster0.accgv.mongodb.net/messages?w=majority&appName=Cluster0"
   )
   .then((result) => {
-    app.listen(8080);
-  })
+    const server = app.listen(8080);
+    const io = require('socket.io')(server);
+    io.on('connection', socket => {
+      console.log('Client connected');
+      })
+    })
   .catch((err) => {
     console.log(err);
   });
