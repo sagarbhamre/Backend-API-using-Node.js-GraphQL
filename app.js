@@ -62,13 +62,11 @@ mongoose
   .connect(
     "mongodb+srv://bunty:4ozHNDozysKXwaMc@cluster0.accgv.mongodb.net/messages?w=majority&appName=Cluster0"
   )
-  .then((result) => {
+  .then(result => {
     const server = app.listen(8080);
     const io = require('./socket').init(server);
-    io.on('connection', socket => {         // <=== socket connection event
+    io.on('connection', socket => {
       console.log('Client connected');
-      })
-    })
-  .catch((err) => {
-    console.log(err);
-  });
+    });
+  })
+  .catch(err => console.log(err));
