@@ -10,7 +10,7 @@ const cors = require( `cors` );
 
 const bodyParser = require("body-parser");
 const resolvers = require("./graphql/resolvers");
-
+const auth = require('./middleware/auth');
 const app = express();
 
 const fileStorage = multer.diskStorage({
@@ -52,12 +52,15 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(auth);
+
 app.use( cors() );
 
 app.use('/graphql', graphqlHTTP({
     schema: graphqlSchema,
     rootValue: graphqlResolver,
     graphiql: true,
+    
     customFormatErrorFn(err){
     if(!err.originalErr){
         return err;
