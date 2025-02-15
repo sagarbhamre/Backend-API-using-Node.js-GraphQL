@@ -67,7 +67,7 @@ app.put('/post-image',(req, res, next) => {
   if(req.body.oldPath){
     clearImage(req.body.oldPath);
   }
-  return res.status(200).json({message: 'File uploaded', filePath: req.file.path});
+  return res.status(201).json({success:true, message:'file stored',filePath:req.file.path.replace('\\','/')})
 });
 
 app.use('/graphql', graphqlHTTP({
